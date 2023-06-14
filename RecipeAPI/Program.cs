@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using RecipeAPI;
 using RecipeAPI.Data;
+using RecipeAPI.Interfaces;
 using RecipeAPI.Models;
+using RecipeAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddTransient<Seed>();
+builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 //builder.Services.AddDbContext<RecipeContext>(opt =>
 //    opt.UseInMemoryDatabase("Recipe"));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
