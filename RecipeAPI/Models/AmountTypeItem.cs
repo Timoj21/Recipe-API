@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public required string Type { get; set; }
-        public ICollection<RecipeIngredientItem> RecipeIngredients { get; } = new List<RecipeIngredientItem>();
+        public ICollection<RecipeIngredientItem>? RecipeIngredients { get; set; }
 
     }
 }

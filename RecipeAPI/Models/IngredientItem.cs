@@ -2,8 +2,8 @@
 {
     public class IngredientItem
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public required string Name { get; set; }
-        public List<RecipeIngredientItem> RecipeIngredients { get; } = new();
+        public ICollection<RecipeIngredientItem>? RecipeIngredients { get; set; }
     }
 }
