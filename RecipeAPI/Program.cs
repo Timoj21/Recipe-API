@@ -11,7 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddTransient<Seed>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
+builder.Services.AddScoped<IAmountTypeRepository, AmountTypeRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 //builder.Services.AddDbContext<RecipeContext>(opt =>
 //    opt.UseInMemoryDatabase("Recipe"));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
