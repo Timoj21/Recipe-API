@@ -76,5 +76,11 @@ namespace RecipeAPI.Repositories
             _context.Update(recipe);
             return Save();
         }
+
+        public bool DeleteRecipe(RecipeItem recipe)
+        {
+            _context.Remove(recipe);
+            return Save();
+        }
     }
 }

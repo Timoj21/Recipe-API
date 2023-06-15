@@ -141,5 +141,30 @@ namespace RecipeAPI.Controllers
         //    }
         //    return Ok("Succesfully updated recipe");
         //}
+
+        // Delete Recipe
+        [HttpDelete("{recipeId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteRecipe(int recipeId)
+        {
+            if (!_recipeRepository.RecipeExists(recipeId))
+            {
+                return NotFound();
+            }
+
+            var recipeDelete = _recipeRepository.GetRecipe(recipeId);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!_recipeRepository.DeleteRecipe(recipeDelete))
+            {
+                ModelState.AddModelError("", "Something went wrong deleting recipe");
+            }
+
+            return Ok("Succesfully deleted recipe");
+        }
     }
 }

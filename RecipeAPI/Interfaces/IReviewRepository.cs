@@ -9,6 +9,7 @@ namespace RecipeAPI.Interfaces
         bool ReviewExists(int id);
         bool CreateReview(ReviewItem review);
         bool UpdateReview(ReviewItem review);
+        bool DeleteReview(ReviewItem review);
         bool Save();
     }
 }

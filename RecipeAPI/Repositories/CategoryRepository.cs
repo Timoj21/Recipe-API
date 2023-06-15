@@ -29,6 +29,12 @@ namespace RecipeAPI.Repositories
             return Save();
         }
 
+        public bool DeleteCategory(CategoryItem categoryItem)
+        {
+            _context.Remove(categoryItem);
+            return Save();
+        }
+
         public ICollection<CategoryItem> GetCategories()
         {
             return _context.CategoryItems.OrderBy(c => c.Id).ToList();

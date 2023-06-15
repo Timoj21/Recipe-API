@@ -11,6 +11,7 @@ namespace RecipeAPI.Interfaces
         bool RecipeExists(int id);
         bool CreateRecipe(int categoryId, int ingredientId, int amountTypeId, int amount, RecipeItem recipe);
         bool UpdateRecipe(int categoryId, int ingredientId, int amountTypeId, int amount, RecipeItem recipe);
+        bool DeleteRecipe(RecipeItem recipe);
         bool Save();
     }
 }

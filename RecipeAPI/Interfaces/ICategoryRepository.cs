@@ -13,6 +13,7 @@ namespace RecipeAPI.Interfaces
         bool CategoryExists(string name);
         bool CreateCategory(CategoryItem categoryItem);
         bool UpdateCategory(CategoryItem categoryItem);
+        bool DeleteCategory(CategoryItem categoryItem);
         bool Save();
     }
 }

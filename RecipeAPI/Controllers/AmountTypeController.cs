@@ -111,5 +111,30 @@ namespace RecipeAPI.Controllers
             }
             return Ok("Succesfully updated AmountType");
         }
+
+        // Delete AmountType
+        [HttpDelete("{amountTypeId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteAmountType(int amountTypeId)
+        {
+            if(!_amountTypeRepository.AmountTypeExists(amountTypeId))
+            {
+                return NotFound();
+            }
+
+            var amountTypeDelete = _amountTypeRepository.GetAmountType(amountTypeId);
+
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if(!_amountTypeRepository.DeleteAmountType(amountTypeDelete))
+            {
+                ModelState.AddModelError("", "Something went wrong deleting amountType");
+            }
+
+            return Ok("Succesfully deleted amountType");
+        }
     }
 }

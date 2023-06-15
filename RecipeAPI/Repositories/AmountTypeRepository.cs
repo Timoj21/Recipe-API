@@ -24,6 +24,12 @@ namespace RecipeAPI.Repositories
             return Save();
         }
 
+        public bool DeleteAmountType(AmountTypeItem amountType)
+        {
+            _context.Remove(amountType);
+            return Save();
+        }
+
         public AmountTypeItem GetAmountType(int id)
         {
             return _context.AmountTypeItems.Where(r => r.Id == id).FirstOrDefault();

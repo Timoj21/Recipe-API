@@ -19,6 +19,12 @@ namespace RecipeAPI.Repositories
             return Save();
         }
 
+        public bool DeleteIngredient(IngredientItem ingredient)
+        {
+            _context.Remove(ingredient);
+            return Save();
+        }
+
         public IngredientItem GetIngredient(int id)
         {
             return _context.IngredientItems.Where(i => i.Id == id).FirstOrDefault();

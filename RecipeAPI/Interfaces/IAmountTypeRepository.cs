@@ -10,6 +10,7 @@ namespace RecipeAPI.Interfaces
         bool AmountTypeExists(int id);
         bool CreateAmountType(AmountTypeItem amountType);
         bool UpdateAmountType(AmountTypeItem amountType);
+        bool DeleteAmountType(AmountTypeItem amountType);
         bool Save();
 
     }

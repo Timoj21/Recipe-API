@@ -19,6 +19,12 @@ namespace RecipeAPI.Repositories
             return Save();
         }
 
+        public bool DeleteReview(ReviewItem review)
+        {
+            _context.Remove(review);
+            return Save();
+        }
+
         public ReviewItem GetReview(int id)
         {
             return _context.ReviewItems.Where(r => r.Id == id).FirstOrDefault();
