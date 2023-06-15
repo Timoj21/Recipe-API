@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RecipeAPI.Models.AmountTypeItem">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAgQAAAAAAAAA=</HashCode>
+      <FileName>Models\AmountTypeItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecipeAPI.Models.CategoryItem">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAABAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\CategoryItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecipeAPI.Models.IngredientItem">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Models\IngredientItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecipeAPI.Models.RecipeCategoryItem">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAgAAAAAAAAAAAAAAAAAAAAAACAAACAA=</HashCode>
+      <FileName>Models\RecipeCategoryItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecipeAPI.Models.RecipeIngredientItem">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABABgAAAAAAAAIAAAAACAAAAAAAAAAAAECAAAAAA=</HashCode>
+      <FileName>Models\RecipeIngredientItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecipeAPI.Models.RecipeItem">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAChEAAAAAAAFAAAAAAAAAAAAAIAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Models\RecipeItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecipeAPI.Models.ReviewItem">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABEAAAAAAgAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ReviewItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecipeAPI.Repositories.AmountTypeRepository" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAIAQAAAABAAAgAAAAgAAAAAAAgAAAAAAACAAAAA=</HashCode>
+      <FileName>Repositories\AmountTypeRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RecipeAPI.Repositories.CategoryRepository" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAIAAAAICBAAAAAAAAAAAAQAAgAAAAAAAAAgAAAg=</HashCode>
+      <FileName>Repositories\CategoryRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RecipeAPI.Repositories.IngredientRepository" BaseTypeListCollapsed="true">
+    <Position X="4" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIQEAAAABCAAAAAAAAAAAAAQAEAABAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\IngredientRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RecipeAPI.Repositories.RecipeRepository" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAIBACAAABAAAAAAgABAEAAAAAAACAAAAAAAAAEA=</HashCode>
+      <FileName>Repositories\RecipeRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RecipeAPI.Repositories.ReviewRepository" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAhAAIAAAAAABAAAAAgAAAAAAQAAgAACAACAAAAAAAA=</HashCode>
+      <FileName>Repositories\ReviewRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RecipeAPI.Controllers.AmountTypeController">
+    <Position X="0.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAQAAAAAAAAAAABAgAAAAAAAgAAAAAAACAAAIA=</HashCode>
+      <FileName>Controllers\AmountTypeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecipeAPI.Controllers.CategoryController">
+    <Position X="2.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAICAAAAAAABAAAAAQAAgAACAAAAAAAAAAg=</HashCode>
+      <FileName>Controllers\CategoryController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecipeAPI.Controllers.IngredientController">
+    <Position X="4" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQQAAAABAAAAAABIAAAAAAQAgAAAAAAACAAAAA=</HashCode>
+      <FileName>Controllers\IngredientController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecipeAPI.Controllers.RecipeController">
+    <Position X="5.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABASAAAAAAAAAABIBAEAEAAAAACAAAAAAAAAEA=</HashCode>
+      <FileName>Controllers\RecipeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecipeAPI.Controllers.ReviewController">
+    <Position X="7.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAhAAAAAQAAAAAAAAAABIAAAAAAAAAACAACAACAAAAA=</HashCode>
+      <FileName>Controllers\ReviewController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="RecipeAPI.Interfaces.IAmountTypeRepository">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAIAQAAAAAAAAgAAAAgAAAAAAAgAAAAAAACAAAAA=</HashCode>
+      <FileName>Interfaces\IAmountTypeRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RecipeAPI.Interfaces.ICategoryRepository">
+    <Position X="2.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAIAAAAICAAAAAAAAAAAAAQAAgAAAAAAAAAgAAAg=</HashCode>
+      <FileName>Interfaces\ICategoryRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RecipeAPI.Interfaces.IIngredientRepository">
+    <Position X="4" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIQEAAAAACAAAAAAAAAAAAAQAEAABAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IIngredientRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RecipeAPI.Interfaces.IRecipeRepository">
+    <Position X="5.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAIBACAAAAAAAAAAgABAEAAAAAAACAAAAAAAAAEA=</HashCode>
+      <FileName>Interfaces\IRecipeRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RecipeAPI.Interfaces.IReviewRepository">
+    <Position X="7.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAhAAIAAAAAAAAAAAAgAAAAAAQAAgAACAACAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IReviewRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Recipe API" Size="9" />
+</ClassDiagram>
