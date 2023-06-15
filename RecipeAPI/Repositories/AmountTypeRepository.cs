@@ -44,5 +44,11 @@ namespace RecipeAPI.Repositories
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
         }
+
+        public bool UpdateAmountType(AmountTypeItem amountType)
+        {
+            _context.Update(amountType);
+            return Save();
+        }
     }
 }

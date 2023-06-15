@@ -9,6 +9,7 @@ namespace RecipeAPI.Interfaces
         IngredientItem GetIngredient(string name);
         bool IngredientExists(int id);
         bool CreateIngredient(IngredientItem ingredient);
+        bool UpdateIngredient(IngredientItem ingredient);
         bool Save();
     }
 }

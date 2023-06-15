@@ -70,5 +70,11 @@ namespace RecipeAPI.Repositories
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
         }
+
+        public bool UpdateRecipe(int categoryId, int ingredientId, int amountTypeId, int amount, RecipeItem recipe)
+        {
+            _context.Update(recipe);
+            return Save();
+        }
     }
 }

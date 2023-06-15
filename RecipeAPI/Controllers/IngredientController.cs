@@ -83,5 +83,34 @@ namespace RecipeAPI.Controllers
 
             return Ok("Succesfully created Ingredient");
         }
+
+        // Update Ingredient
+        [HttpPut("{ingredientId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult UpdateAmountType(int ingredientId, [FromBody] IngredientDTO updatedIngredient)
+        {
+            if (updatedIngredient == null)
+                return BadRequest(ModelState);
+
+            if (ingredientId != updatedIngredient.Id)
+                return BadRequest(ModelState);
+
+            if (!_ingredientRepository.IngredientExists(ingredientId))
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var ingredientMap = _mapper.Map<IngredientItem>(updatedIngredient);
+
+            if (!_ingredientRepository.UpdateIngredient(ingredientMap))
+            {
+                ModelState.AddModelError("", "Something went wrong updating ingredient");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Succesfully updated ingredient");
+        }
     }
 }

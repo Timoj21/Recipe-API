@@ -44,5 +44,11 @@ namespace RecipeAPI.Repositories
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
         }
+
+        public bool UpdateIngredient(IngredientItem ingredient)
+        {
+            _context.Update(ingredient);
+            return Save();
+        }
     }
 }
