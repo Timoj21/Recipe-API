@@ -9,8 +9,8 @@ namespace RecipeAPI.Interfaces
         CategoryItem GetCategory(string name);
         ICollection<RecipeItem> GetRecipeByCategory(int categoryId);
         ICollection<RecipeItem> GetRecipeByCategory(string categoryName);
-        bool CategoryExistst(int id);
-        bool CategoryExists(string name);
+        bool CategoryExists(int id);
+        //bool CategoryExists(string name);
         bool CreateCategory(CategoryItem categoryItem);
         bool UpdateCategory(CategoryItem categoryItem);
         bool DeleteCategory(CategoryItem categoryItem);

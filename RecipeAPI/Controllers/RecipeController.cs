@@ -12,13 +12,16 @@ namespace RecipeAPI.Controllers
     public class RecipeController : Controller
     {
         private readonly IRecipeRepository _recipeRepository;
+        private readonly IReviewRepository _reviewRepository;
         private readonly IMapper _mapper;
 
         public RecipeController(IRecipeRepository recipeRepository,
             ICategoryRepository categoryRepository,
+            IReviewRepository reviewRepository,
             IMapper mapper)
         {
             _recipeRepository = recipeRepository;
+            _reviewRepository = reviewRepository;
             _mapper = mapper;
         }
 
@@ -79,68 +82,69 @@ namespace RecipeAPI.Controllers
             return Ok(recipes);
         }
 
-        // Create recipe        //[HttpPost]
-        //[ProducesResponseType(204)]
-        //[ProducesResponseType(400)]
-        //public IActionResult CreateRecipe([FromQuery] int categoryId, [FromQuery] int ingredientId, [FromQuery] int amountTypeId, [FromQuery] int amount, [FromBody] RecipeDTO recipeCreate)
-        //{
-        //    if (recipeCreate == null)
-        //        return BadRequest(ModelState);
+       //Create recipe
+       [HttpPost]
+       [ProducesResponseType(204)]
+       [ProducesResponseType(400)]
+        public IActionResult CreateRecipe([FromBody] CreateRecipeDTO recipeCreate)
+        {
+            if (recipeCreate == null)
+                return BadRequest(ModelState);
 
-        //    var recipe = _recipeRepository.GetRecipes()
-        //        .Where(i => i.Title.Trim().ToUpper() == recipeCreate.Title.TrimEnd().ToUpper())
-        //        .FirstOrDefault();
+            var recipe = _recipeRepository.GetRecipes()
+                .Where(i => i.Title.Trim().ToUpper() == recipeCreate.recipe.Title.TrimEnd().ToUpper())
+                .FirstOrDefault();
 
-        //    if (recipe != null)
-        //    {
-        //        ModelState.AddModelError("", "Recipe already exists");
-        //        return StatusCode(422, ModelState);
-        //    }
+            if (recipe != null)
+            {
+                ModelState.AddModelError("", "Recipe already exists");
+                return StatusCode(422, ModelState);
+            }
 
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        //    var recipeMap = _mapper.Map<RecipeItem>(recipeCreate);
+            var recipeMap = _mapper.Map<RecipeItem>(recipeCreate.recipe);
 
 
 
-        //    if (!_recipeRepository.CreateRecipe(categoryId, ingredientId, amountTypeId, amount, recipeMap))
-        //    {
-        //        ModelState.AddModelError("", "Something went wrong while saving");
-        //        return StatusCode(500, ModelState);
-        //    }
+            if (!_recipeRepository.CreateRecipe(recipeCreate, recipeMap))
+            {
+                ModelState.AddModelError("", "Something went wrong while saving");
+                return StatusCode(500, ModelState);
+            }
 
-        //    return Ok("Succesfully created Recipe");
-        //}
+            return Ok("Succesfully created Recipe");
+        }
 
         // Update Recipe
-        //[HttpPut("{recipeId}")]
-        //[ProducesResponseType(400)]
-        //[ProducesResponseType(204)]
-        //[ProducesResponseType(404)]
-        //public IActionResult UpdateRecipe(int recipeId, [FromBody] RecipeDTO updatedRecipe)
-        //{
-        //    if (updatedRecipe == null)
-        //        return BadRequest(ModelState);
+        [HttpPut("{recipeId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult UpdateRecipe(int recipeId, [FromBody] CreateRecipeDTO updatedRecipe)
+        {
+            if (updatedRecipe == null)
+                return BadRequest(ModelState);
 
-        //    if (recipeId != updatedRecipe.Id)
-        //        return BadRequest(ModelState);
+            if (recipeId != updatedRecipe.recipe.Id)
+                return BadRequest(ModelState);
 
-        //    if (!_recipeRepository.RecipeExists(recipeId))
-        //        return NotFound();
+            if (!_recipeRepository.RecipeExists(recipeId))
+                return NotFound();
 
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        //    var recipeMap = _mapper.Map<RecipeItem>(updatedRecipe);
+            var recipeMap = _mapper.Map<RecipeItem>(updatedRecipe.recipe);
 
-        //    if (!_recipeRepository.UpdateRecipe(recipeMap))
-        //    {
-        //        ModelState.AddModelError("", "Something went wrong updating recipe");
-        //        return StatusCode(500, ModelState);
-        //    }
-        //    return Ok("Succesfully updated recipe");
-        //}
+            if (!_recipeRepository.UpdateRecipe(updatedRecipe, recipeMap))
+            {
+                ModelState.AddModelError("", "Something went wrong updating recipe");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Succesfully updated recipe");
+        }
 
         // Delete Recipe
         [HttpDelete("{recipeId}")]
@@ -154,10 +158,16 @@ namespace RecipeAPI.Controllers
                 return NotFound();
             }
 
+            var reviewsDelete = _reviewRepository.GetReviewsByRecipeId(recipeId);
             var recipeDelete = _recipeRepository.GetRecipe(recipeId);
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            if (!_reviewRepository.DeleteReviews(reviewsDelete.ToList()))
+            {
+                ModelState.AddModelError("", "Something went wrong deleting reviews");
+            }
 
             if (!_recipeRepository.DeleteRecipe(recipeDelete))
             {

@@ -1,4 +1,5 @@
-﻿using RecipeAPI.Models;
+﻿using RecipeAPI.DTO;
+using RecipeAPI.Models;
 
 namespace RecipeAPI.Interfaces
 {
@@ -9,8 +10,8 @@ namespace RecipeAPI.Interfaces
         ICollection<RecipeItem> GetRecipesByTitle(string title);
         ICollection<RecipeItem> GetRecipesByPrepTime(int time);
         bool RecipeExists(int id);
-        bool CreateRecipe(int categoryId, int ingredientId, int amountTypeId, int amount, RecipeItem recipe);
-        bool UpdateRecipe(int categoryId, int ingredientId, int amountTypeId, int amount, RecipeItem recipe);
+        bool CreateRecipe(CreateRecipeDTO createRecipe, RecipeItem recipe);
+        bool UpdateRecipe(CreateRecipeDTO createRecipe, RecipeItem recipe);
         bool DeleteRecipe(RecipeItem recipe);
         bool Save();
     }

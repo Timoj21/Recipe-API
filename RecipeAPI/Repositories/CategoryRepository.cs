@@ -13,12 +13,12 @@ namespace RecipeAPI.Repositories
             _context = context;
         }
 
-        public bool CategoryExists(string name)
-        {
-            return _context.CategoryItems.Any(c => c.Name == name);
-        }
+        //public bool CategoryExists(string name)
+        //{
+        //    return _context.CategoryItems.Any(c => c.Name == name);
+        //}
 
-        public bool CategoryExistst(int id)
+        public bool CategoryExists(int id)
         {
             return _context.CategoryItems.Any(c => c.Id == id);
         }

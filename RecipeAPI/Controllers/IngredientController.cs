@@ -12,8 +12,9 @@ namespace RecipeAPI.Controllers
     public class IngredientController : Controller
     {
         private readonly IIngredientRepository _ingredientRepository;
+        private readonly IRecipeRepository _recipeRepository;
         private readonly IMapper _mapper;
-        public IngredientController(IIngredientRepository ingredientRepository, IMapper mapper)
+        public IngredientController(IIngredientRepository ingredientRepository, IRecipeRepository recipeRepository, IMapper mapper)
         {
             _ingredientRepository = ingredientRepository;
             _mapper = mapper;
@@ -126,6 +127,7 @@ namespace RecipeAPI.Controllers
             }
 
             var ingredientDelete = _ingredientRepository.GetIngredient(ingredientId);
+            
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

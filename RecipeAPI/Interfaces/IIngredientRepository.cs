@@ -6,7 +6,7 @@ namespace RecipeAPI.Interfaces
     {
         ICollection<IngredientItem> GetIngredients();
         IngredientItem GetIngredient(int id);
-        IngredientItem GetIngredient(string name);
+        //IngredientItem GetIngredient(string name);
         bool IngredientExists(int id);
         bool CreateIngredient(IngredientItem ingredient);
         bool UpdateIngredient(IngredientItem ingredient);

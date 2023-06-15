@@ -36,6 +36,21 @@ namespace RecipeAPI.Controllers
             return Ok(reviews);
         }
 
+        // Get al reviews by recipeId
+        [HttpGet("recipeId")]
+        [ProducesResponseType(200, Type = typeof(ICollection<ReviewItem>))]
+        public IActionResult GetReviewsByRecipeId(int recipeId)
+        {
+            var reviews = _mapper.Map<List<ReviewDTO>>(_reviewRepository.GetReviewsByRecipeId(recipeId));
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            return Ok(reviews);
+        }
+
         // Get reviews by id
         [HttpGet("{reviewId}")]
         [ProducesResponseType(200, Type = typeof(ReviewItem))]
@@ -64,7 +79,7 @@ namespace RecipeAPI.Controllers
 
             var review = _reviewRepository.GetReviews()
                 .Where(r => r.Name.Trim().ToUpper() == reviewCreate.Name.TrimEnd().ToUpper()
-                && r.RecipeId == recipeId)
+                && r.Recipe.Id == recipeId)
                 .FirstOrDefault();
 
             if (review != null)

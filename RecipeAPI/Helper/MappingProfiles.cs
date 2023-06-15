@@ -10,6 +10,7 @@ namespace RecipeAPI.Helper
         {
             CreateMap<RecipeItem, RecipeDTO>();
             CreateMap<RecipeDTO, RecipeItem>();
+            CreateMap<CreateRecipeDTO, RecipeItem>();
             CreateMap<AmountTypeItem, AmountTypeDTO>();
             CreateMap<AmountTypeDTO, AmountTypeItem>();
             CreateMap<CategoryItem, CategoryDTO>();

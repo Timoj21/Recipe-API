@@ -25,6 +25,12 @@ namespace RecipeAPI.Repositories
             return Save();
         }
 
+        public bool DeleteReviews(List<ReviewItem> reviews)
+        {
+            _context.RemoveRange(reviews);
+            return Save();
+        }
+
         public ReviewItem GetReview(int id)
         {
             return _context.ReviewItems.Where(r => r.Id == id).FirstOrDefault();
@@ -33,6 +39,11 @@ namespace RecipeAPI.Repositories
         public ICollection<ReviewItem> GetReviews()
         {
             return _context.ReviewItems.OrderBy(r => r.Id).ToList();
+        }
+
+        public ICollection<ReviewItem> GetReviewsByRecipeId(int recipeId)
+        {
+            return _context.ReviewItems.Where(r => r.Recipe.Id == recipeId).ToList();
         }
 
         public bool ReviewExists(int id)

@@ -40,7 +40,7 @@ namespace RecipeAPI.Controllers
         [ProducesResponseType(400)]
         public IActionResult GetCategory(int categoryId)
         {
-            if (!_categoryRepository.CategoryExistst(categoryId))
+            if (!_categoryRepository.CategoryExists(categoryId))
                 return NotFound();
 
             var category = _mapper.Map<CategoryDTO>(_categoryRepository.GetCategory(categoryId));
@@ -67,19 +67,19 @@ namespace RecipeAPI.Controllers
         }
 
         // Get recipes by category
-        [HttpGet("Recipe/byCategoryName/{categoryName}")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<RecipeItem>))]
-        [ProducesResponseType(400)]
-        public IActionResult GetRecipeByCategory(string categoryName)
-        {
-            var recipes = _mapper.Map<List<RecipeDTO>>(
-                _categoryRepository.GetRecipeByCategory(categoryName));
+        //[HttpGet("Recipe/byCategoryName/{categoryName}")]
+        //[ProducesResponseType(200, Type = typeof(IEnumerable<RecipeItem>))]
+        //[ProducesResponseType(400)]
+        //public IActionResult GetRecipeByCategory(string categoryName)
+        //{
+        //    var recipes = _mapper.Map<List<RecipeDTO>>(
+        //        _categoryRepository.GetRecipeByCategory(categoryName));
 
-            if (!ModelState.IsValid)
-                return BadRequest();
+        //    if (!ModelState.IsValid)
+        //        return BadRequest();
 
-            return Ok(recipes);
-        }
+        //    return Ok(recipes);
+        //}
 
         // Create category
         [HttpPost]
@@ -127,7 +127,7 @@ namespace RecipeAPI.Controllers
             if (categoryId != updatedCategory.Id)
                 return BadRequest(ModelState);
 
-            if (!_categoryRepository.CategoryExistst(categoryId))
+            if (!_categoryRepository.CategoryExists(categoryId))
                 return NotFound();
 
             if (!ModelState.IsValid)

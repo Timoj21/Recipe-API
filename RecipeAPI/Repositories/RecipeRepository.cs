@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RecipeAPI.Data;
+using RecipeAPI.DTO;
 using RecipeAPI.Interfaces;
 using RecipeAPI.Models;
 
@@ -39,28 +40,34 @@ namespace RecipeAPI.Repositories
             return _context.RecipeItems.Any(r => r.Id == id);
         }
 
-        public bool CreateRecipe(int categoryId, int ingredientId, int amountTypeId, int amount, RecipeItem recipe)
+        public bool CreateRecipe(CreateRecipeDTO createRecipe, RecipeItem recipe)
         {
-            var recipeCategoryEntity = _context.CategoryItems.Where(c => c.Id == categoryId).FirstOrDefault();
-            var recipeIngredientEntity = _context.IngredientItems.Where(i => i.Id == ingredientId).FirstOrDefault();
-            var amountTypeEntity = _context.AmountTypeItems.Where(a => a.Id == amountTypeId).FirstOrDefault();
-
-            var recipeCategory = new RecipeCategoryItem()
+            foreach (int categoryId in createRecipe.RecipeCategories)
             {
-                Recipe = recipe,
-                Category = recipeCategoryEntity
-            };
-            _context.Add(recipeCategory);
+                var recipeCategory = _context.CategoryItems.Where(c => c.Id == categoryId).FirstOrDefault();
 
-            var recipeIngredient = new RecipeIngredientItem()
+                var rCategory = new RecipeCategoryItem()
+                {
+                    Recipe = recipe,
+                    Category = recipeCategory
+                };
+                _context.Add(rCategory);
+            }
+
+            foreach (CreateIngredientItem ingredientItem in createRecipe.createIngredientItems)
             {
-                Recipe = recipe,
-                Ingredient = recipeIngredientEntity,
-                Amount = amount,
-                AmountType = amountTypeEntity
-            };
-            _context.Add(recipeIngredient);
+                var recipeIngredient = _context.IngredientItems.Where(c => c.Id == ingredientItem.ingredientId).FirstOrDefault();
+                var recipeAmountType = _context.AmountTypeItems.Where(c => c.Id == ingredientItem.amountTypeId).FirstOrDefault();
 
+                var rIngredient = new RecipeIngredientItem()
+                {
+                    Recipe = recipe,
+                    Ingredient = recipeIngredient,
+                    Amount = ingredientItem.amount,
+                    AmountType = recipeAmountType
+                };
+                _context.Add(rIngredient);
+            }
             _context.Add(recipe);
             return Save();
         }
@@ -71,8 +78,52 @@ namespace RecipeAPI.Repositories
             return saved > 0 ? true : false;
         }
 
-        public bool UpdateRecipe(int categoryId, int ingredientId, int amountTypeId, int amount, RecipeItem recipe)
+        public bool UpdateRecipe(CreateRecipeDTO createRecipe, RecipeItem recipe)
         {
+            var recipeCategories = _context.RecipeCategoryItems.Where(rc => rc.RecipeId == recipe.Id).ToList();
+            _context.RemoveRange(recipeCategories);
+            
+            
+
+            var recipeIngredients = _context.RecipeCategoryItems.Where(ri => ri.RecipeId == recipe.Id).ToList();
+            _context.RemoveRange(recipeIngredients);
+            _context.SaveChanges();
+            if (recipeIngredients.Any())
+            {
+                Console.WriteLine("hier dan");
+                return Save();
+            } else
+            {
+                Console.WriteLine("hier nie");
+            }
+
+            foreach (int categoryId in createRecipe.RecipeCategories)
+            {
+                var recipeCategory = _context.CategoryItems.Where(c => c.Id == categoryId).FirstOrDefault();
+
+                var rCategory = new RecipeCategoryItem()
+                {
+                    Recipe = recipe,
+                    Category = recipeCategory
+                };
+                _context.Add(rCategory);
+            }
+
+            foreach (CreateIngredientItem ingredientItem in createRecipe.createIngredientItems)
+            {
+                var recipeIngredient = _context.IngredientItems.Where(c => c.Id == ingredientItem.ingredientId).FirstOrDefault();
+                var recipeAmountType = _context.AmountTypeItems.Where(c => c.Id == ingredientItem.amountTypeId).FirstOrDefault();
+
+                var rIngredient = new RecipeIngredientItem()
+                {
+                    Recipe = recipe,
+                    Ingredient = recipeIngredient,
+                    Amount = ingredientItem.amount,
+                    AmountType = recipeAmountType
+                };
+                _context.Add(rIngredient);
+            }
+
             _context.Update(recipe);
             return Save();
         }
