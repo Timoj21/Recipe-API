@@ -7,6 +7,7 @@ namespace RecipeAPI.Interfaces
         ICollection<ReviewItem> GetReviews();
         ReviewItem GetReview(int id);
         bool ReviewExists(int id);
-
+        bool CreateReview(ReviewItem review);
+        bool Save();
     }
 }

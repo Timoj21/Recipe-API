@@ -9,5 +9,7 @@ namespace RecipeAPI.Interfaces
         ICollection<RecipeItem> GetRecipesByTitle(string title);
         ICollection<RecipeItem> GetRecipesByPrepTime(int time);
         bool RecipeExists(int id);
+        bool CreateRecipe(int categoryId, int ingredientId, int amountTypeId, int amount, RecipeItem recipe);
+        bool Save();
     }
 }

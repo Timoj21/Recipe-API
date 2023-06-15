@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RecipeAPI.DTO;
 using RecipeAPI.Interfaces;
 using RecipeAPI.Models;
+using RecipeAPI.Repositories;
 
 namespace RecipeAPI.Controllers
 {
@@ -48,6 +49,39 @@ namespace RecipeAPI.Controllers
                 return BadRequest(ModelState);
 
             return Ok(ingredient);
+        }
+
+        // Create ingredient
+        [HttpPost]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult CreateIngredient([FromBody] IngredientDTO ingredientCreate)
+        {
+            if (ingredientCreate == null)
+                return BadRequest(ModelState);
+
+            var ingredient = _ingredientRepository.GetIngredients()
+                .Where(i => i.Name.Trim().ToUpper() == ingredientCreate.Name.TrimEnd().ToUpper())
+                .FirstOrDefault();
+
+            if (ingredient != null)
+            {
+                ModelState.AddModelError("", "Ingredient already exists");
+                return StatusCode(422, ModelState);
+            }
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var ingredientMap = _mapper.Map<IngredientItem>(ingredientCreate);
+
+            if (!_ingredientRepository.CreateIngredient(ingredientMap))
+            {
+                ModelState.AddModelError("", "Something went wrong while saving");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("Succesfully created Ingredient");
         }
     }
 }

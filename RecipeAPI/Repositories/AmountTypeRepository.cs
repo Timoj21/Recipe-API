@@ -18,6 +18,12 @@ namespace RecipeAPI.Repositories
             return _context.AmountTypeItems.Any(r => r.Id == id);
         }
 
+        public bool CreateAmountType(AmountTypeItem amountType)
+        {
+            _context.Add(amountType);
+            return Save();
+        }
+
         public AmountTypeItem GetAmountType(int id)
         {
             return _context.AmountTypeItems.Where(r => r.Id == id).FirstOrDefault();
@@ -33,6 +39,10 @@ namespace RecipeAPI.Repositories
             return _context.AmountTypeItems.OrderBy(a => a.Id).ToList();
         }
 
-        
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
     }
 }

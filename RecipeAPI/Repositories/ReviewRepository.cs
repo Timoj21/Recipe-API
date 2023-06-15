@@ -12,6 +12,13 @@ namespace RecipeAPI.Repositories
         {
             _context = context;
         }
+
+        public bool CreateReview(ReviewItem review)
+        {
+            _context.Add(review);
+            return Save();
+        }
+
         public ReviewItem GetReview(int id)
         {
             return _context.ReviewItems.Where(r => r.Id == id).FirstOrDefault();
@@ -25,6 +32,12 @@ namespace RecipeAPI.Repositories
         public bool ReviewExists(int id)
         {
             return _context.ReviewItems.Any(r => r.Id == id);
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
         }
     }
 }

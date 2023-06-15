@@ -11,5 +11,7 @@ namespace RecipeAPI.Interfaces
         ICollection<RecipeItem> GetRecipeByCategory(string categoryName);
         bool CategoryExistst(int id);
         bool CategoryExists(string name);
+        bool CreateCategory(CategoryItem categoryItem);
+        bool Save();
     }
 }

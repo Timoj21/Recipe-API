@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RecipeAPI.DTO;
 using RecipeAPI.Interfaces;
 using RecipeAPI.Models;
+using RecipeAPI.Repositories;
 
 namespace RecipeAPI.Controllers
 {
@@ -74,6 +75,41 @@ namespace RecipeAPI.Controllers
                 return BadRequest(ModelState);
 
             return Ok(recipes);
+        }
+
+        // Create recipe
+        [HttpPost]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult CreateRecipe([FromQuery] int categoryId, [FromQuery] int ingredientId, [FromQuery] int amountTypeId, [FromQuery] int amount, [FromBody] RecipeDTO recipeCreate)
+        {
+            if (recipeCreate == null)
+                return BadRequest(ModelState);
+
+            var recipe = _recipeRepository.GetRecipes()
+                .Where(i => i.Title.Trim().ToUpper() == recipeCreate.Title.TrimEnd().ToUpper())
+                .FirstOrDefault();
+
+            if (recipe != null)
+            {
+                ModelState.AddModelError("", "Recipe already exists");
+                return StatusCode(422, ModelState);
+            }
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var recipeMap = _mapper.Map<RecipeItem>(recipeCreate);
+
+            
+
+            if (!_recipeRepository.CreateRecipe(categoryId, ingredientId, amountTypeId, amount, recipeMap))
+            {
+                ModelState.AddModelError("", "Something went wrong while saving");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("Succesfully created Recipe");
         }
     }
 }

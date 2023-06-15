@@ -49,5 +49,38 @@ namespace RecipeAPI.Controllers
 
             return Ok(amountType);
         }
+
+        // Create amountType
+        [HttpPost]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult CreateAmountType([FromBody] AmountTypeDTO amountTypeCreate)
+        {
+            if (amountTypeCreate == null)
+                return BadRequest(ModelState);
+
+            var amountType = _amountTypeRepository.GetAmountTypes()
+                .Where(a => a.Type.Trim().ToUpper() == amountTypeCreate.Type.TrimEnd().ToUpper())
+                .FirstOrDefault();
+            
+            if(amountType != null)
+            {
+                ModelState.AddModelError("", "AmountType already exists");
+                return StatusCode(422, ModelState);
+            }
+
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var amountTypeMap = _mapper.Map<AmountTypeItem>(amountTypeCreate);
+
+            if(!_amountTypeRepository.CreateAmountType(amountTypeMap))
+            {
+                ModelState.AddModelError("", "Something went wrong while saving");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("Succesfully created AmountType");
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using RecipeAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using RecipeAPI.Data;
 using RecipeAPI.Interfaces;
 using RecipeAPI.Models;
 
@@ -21,7 +22,6 @@ namespace RecipeAPI.Repositories
         public ICollection<RecipeItem> GetRecipesByTitle(string title)
         {
             return _context.RecipeItems.Where(r => r.Title.Contains(title)).ToList();
-            //return _context.RecipeItems.Where(r => r.Title == title).ToList();
         }
 
         public ICollection<RecipeItem> GetRecipes()
@@ -37,6 +37,38 @@ namespace RecipeAPI.Repositories
         public bool RecipeExists(int id)
         {
             return _context.RecipeItems.Any(r => r.Id == id);
+        }
+
+        public bool CreateRecipe(int categoryId, int ingredientId, int amountTypeId, int amount, RecipeItem recipe)
+        {
+            var recipeCategoryEntity = _context.CategoryItems.Where(c => c.Id == categoryId).FirstOrDefault();
+            var recipeIngredientEntity = _context.IngredientItems.Where(i => i.Id == ingredientId).FirstOrDefault();
+            var amountTypeEntity = _context.AmountTypeItems.Where(a => a.Id == amountTypeId).FirstOrDefault();
+
+            var recipeCategory = new RecipeCategoryItem()
+            {
+                Recipe = recipe,
+                Category = recipeCategoryEntity
+            };
+            _context.Add(recipeCategory);
+
+            var recipeIngredient = new RecipeIngredientItem()
+            {
+                Recipe = recipe,
+                Ingredient = recipeIngredientEntity,
+                Amount = amount,
+                AmountType = amountTypeEntity
+            };
+            _context.Add(recipeIngredient);
+
+            _context.Add(recipe);
+            return Save();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
         }
     }
 }

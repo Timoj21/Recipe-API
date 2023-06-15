@@ -8,6 +8,8 @@ namespace RecipeAPI.Interfaces
         AmountTypeItem GetAmountType(int id);
         AmountTypeItem GetAmountType(string type);
         bool AmountTypeExists(int id);
+        bool CreateAmountType(AmountTypeItem amountType);
+        bool Save();
 
     }
 }

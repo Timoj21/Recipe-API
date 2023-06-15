@@ -23,6 +23,12 @@ namespace RecipeAPI.Repositories
             return _context.CategoryItems.Any(c => c.Id == id);
         }
 
+        public bool CreateCategory(CategoryItem categoryItem)
+        {
+            _context.Add(categoryItem);
+            return Save();
+        }
+
         public ICollection<CategoryItem> GetCategories()
         {
             return _context.CategoryItems.OrderBy(c => c.Id).ToList();
@@ -46,6 +52,12 @@ namespace RecipeAPI.Repositories
         public ICollection<RecipeItem> GetRecipeByCategory(string categoryName)
         {
             return _context.RecipeCategoryItems.Where(rc => rc.Category.Name == categoryName).Select(rc => rc.Recipe).ToList();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
         }
     }
 }

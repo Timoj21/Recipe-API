@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RecipeAPI.DTO;
 using RecipeAPI.Interfaces;
 using RecipeAPI.Models;
+using RecipeAPI.Repositories;
 
 namespace RecipeAPI.Controllers
 {
@@ -11,10 +12,12 @@ namespace RecipeAPI.Controllers
     public class ReviewController : Controller
     {
         private readonly IReviewRepository _reviewRepository;
+        private readonly IRecipeRepository _recipeRepository;
         private readonly IMapper _mapper;
-        public ReviewController(IReviewRepository reviewRepository, IMapper mapper)
+        public ReviewController(IReviewRepository reviewRepository, IRecipeRepository recipeRepository, IMapper mapper)
         {
             _reviewRepository = reviewRepository;
+            _recipeRepository = recipeRepository;
             _mapper = mapper;
         }
 
@@ -48,6 +51,42 @@ namespace RecipeAPI.Controllers
                 return BadRequest(ModelState);
 
             return Ok(review);
+        }
+
+        // Create review
+        [HttpPost]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult CreateReview([FromQuery] int recipeId, [FromBody] ReviewDTO reviewCreate)
+        {
+            if (reviewCreate == null)
+                return BadRequest(ModelState);
+
+            var review = _reviewRepository.GetReviews()
+                .Where(r => r.Name.Trim().ToUpper() == reviewCreate.Name.TrimEnd().ToUpper()
+                && r.RecipeId == recipeId)
+                .FirstOrDefault();
+
+            if (review != null)
+            {
+                ModelState.AddModelError("", "Review already exists");
+                return StatusCode(422, ModelState);
+            }
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var reviewMap = _mapper.Map<ReviewItem>(reviewCreate);
+
+            reviewMap.Recipe = _recipeRepository.GetRecipe(recipeId);
+
+            if (!_reviewRepository.CreateReview(reviewMap))
+            {
+                ModelState.AddModelError("", "Something went wrong while saving");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("Succesfully created Review");
         }
     }
 }
