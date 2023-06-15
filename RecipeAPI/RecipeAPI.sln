@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeAPI", "RecipeAPI.csproj", "{5544B5D1-FFA9-4E10-B9A1-864952AA2F5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recipes.Test", "..\Recipes.Test\Recipes.Test.csproj", "{CA56CC7B-4092-4560-BA53-FF00B4453AF4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Category.Test", "..\Recipes.Test\Category.Test.csproj", "{CA56CC7B-4092-4560-BA53-FF00B4453AF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
