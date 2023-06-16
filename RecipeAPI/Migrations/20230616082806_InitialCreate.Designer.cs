@@ -12,7 +12,7 @@ using RecipeAPI.Data;
 namespace RecipeAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230614093030_InitialCreate")]
+    [Migration("20230616082806_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace RecipeAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.7")
+                .HasAnnotation("ProductVersion", "8.0.0-preview.5.23280.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
