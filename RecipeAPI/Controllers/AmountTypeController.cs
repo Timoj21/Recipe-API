@@ -33,6 +33,7 @@ namespace RecipeAPI.Controllers
             return Ok(amountTypes);
         }
 
+
         // Get amount type by id
         [HttpGet("{amountTypeId}")]
         [ProducesResponseType(200, Type = typeof(AmountTypeItem))]
