@@ -4,6 +4,7 @@ using RecipeAPI.Data;
 using RecipeAPI.Interfaces;
 using RecipeAPI.Models;
 using RecipeAPI.Repositories;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,11 +46,13 @@ void SeedData(IHost app)
 }
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 
 app.UseHttpsRedirection();
 
